@@ -1,19 +1,99 @@
-<table mat-table [dataSource]="matchData">
-  <ng-component matColumnDef="playerOne">
-    <th mat-header-cell *matHeaderCellDef>Spieler 1</th>
-    <td mat-cell *matCellDef="let element">{{ element.playerOne }}</td>
-  </ng-component>
-  <ng-component matColumnDef="playerTwo">
-    <th mat-header-cell *matHeaderCellDef>Spieler 2</th>
-    <td mat-cell *matCellDef="let element">{{ element.playerTwo }}</td>
-  </ng-component>
-  <ng-component matColumnDef="points">
-    <th mat-header-cell *matHeaderCellDef>Punkte</th>
-    <td mat-cell *matCellDef="let element">{{ element.points }}</td>
-  </ng-component>
-  
-  <tr mat-header-row *matHeaderRowDef="['playerOne', 'playerTwo', 'points']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['playerOne', 'playerTwo', 'points'];"></tr>
-</table>
+<div fxLayout.gt-sm="row" fxLayout.lt-md="column">
+  <div fxFlex.gt-sm="60" class="matches">
+    <h2 fxLayoutAlign="center">Games</h2>
+    <table mat-table [dataSource]="matchData" class="table-match">
+      <ng-component matColumnDef="playerOne">
+        <th mat-header-cell *matHeaderCellDef>Spieler 1</th>
+        <td mat-cell *matCellDef="let element">{{ element.playerOne }}</td>
+      </ng-component>
+      <ng-component matColumnDef="playerTwo">
+        <th mat-header-cell *matHeaderCellDef>Spieler 2</th>
+        <td mat-cell *matCellDef="let element">{{ element.playerTwo }}</td>
+      </ng-component>
+      <ng-component matColumnDef="points">
+        <th mat-header-cell *matHeaderCellDef>Punkte</th>
+        <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+      </ng-component>
+      <ng-component matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" class="button-edit">
+          <button mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-component>
 
-<button mat-icon-button (click)="addRow()">+</button>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['playerOne', 'playerTwo', 'points', 'edit']"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: ['playerOne', 'playerTwo', 'points', 'edit']
+        "
+      ></tr>
+    </table>
+
+    <form class="new-match-form">
+      <mat-form-field class="input-field">
+        <input
+          matInput
+          placeholder="Spieler 1"
+          (value)="newMatch.playerOne"
+        />
+      </mat-form-field>
+      <mat-form-field class="input-field">
+        <input
+          matInput
+          placeholder="Spieler 2"
+          (value)="newMatch.playerTwo"
+        />
+      </mat-form-field>
+      <mat-form-field class="input-field">
+        <input
+          type="number"
+          matInput
+          placeholder="Punkte"
+          (value)="newMatch.points"
+        />
+      </mat-form-field>
+      <button
+        mat-icon-button
+        (click)="addRow()"
+        [disabled]="
+          newMatch.playerOne === '' ||
+          newMatch.playerTwo === '' ||
+          !newMatch.points
+        "
+      >
+        <mat-icon>check_circle_outline</mat-icon>
+      </button>
+    </form>
+  </div>
+  <mat-divider vertical></mat-divider>
+  <div fxFlex.gt-sm="40" class="ranking">
+    <h2 fxLayoutAlign="center">Ranking</h2>
+    <table mat-table [dataSource]="playerData" class="table-player">
+      <ng-component matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-component>
+      <ng-component matColumnDef="games">
+        <th mat-header-cell *matHeaderCellDef>Spiele</th>
+        <td mat-cell *matCellDef="let element">{{ element.games }}</td>
+      </ng-component>
+      <ng-component matColumnDef="points">
+        <th mat-header-cell *matHeaderCellDef>Punkte</th>
+        <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+      </ng-component>
+
+      <tr mat-header-row *matHeaderRowDef="['name', 'games', 'points']"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['name', 'games', 'points']"
+      ></tr>
+    </table>
+  </div>
+</div>

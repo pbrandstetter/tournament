@@ -1,3 +1,32 @@
-table {
-    width: 100%;
+.matches {
+  margin-right: 5px;
+}
+
+.ranking {
+  margin-left: 5px;
+}
+
+.table-match {
+  width: 100%;
+  td {
+    width: 30%;
+  }
+  .button-edit {
+    width: 3%;
+  }
+}
+
+.new-match-form {
+  width: 100%;
+  margin-top: 5px;
+  .input-field {
+    margin: 0 2% 0 2%;
+  }
+}
+
+.table-player {
+  width: 100%;
+  td {
+    width: 33%;
+  }
 }
